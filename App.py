@@ -130,9 +130,4 @@ if __name__ == '__main__':
       for country in websites:
           for website_category, website_url in websites[country].items():
               add_website(country, website_category, website_url)
-    # Fetch all websites from the database
-    all_websites = get_all_websites()
-    # Print the content of each row
-    for row in all_websites:
-        print(row['country'], row['website_category'], row['website_url'])
     app.run(debug= True, port= 8088)
