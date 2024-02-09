@@ -24,6 +24,12 @@ def get_websites_by_country(country):
     connection.close()
     return websites
 
+def get_websites_by_category(country, website_category):
+    connection = get_db_connection()
+    websites = connection.execute('SELECT * FROM websites WHERE country = ? AND website_category = ?', (country, website_category)).fetchall()
+    connection.close()
+    return [website['website_url'] for website in websites]
+
 def get_db_connection():
     connection = sqlite3.connect('websites.db')
     connection.row_factory = sqlite3.Row
@@ -55,11 +61,37 @@ def get_websites(country):
       404:
         description: country Not Found
     """
-    websites_json = []
+    websites_json = {}
     # Fetch all websites for the specified country
-    websites = get_websites_by_country(country)
-    websites_json = {country: {website['website_category']: website['website_url'] for website in websites}}
-    return jsonify(websites_json)
+    categories = ["news", "economy", "sports"]
+    for category in categories:
+        websites_json[category] = get_websites_by_category(country, category)
+    return jsonify({country: websites_json})
+
+@app.route('/<country>/<website_category>', methods=["GET"])
+def get_categroy_websites(country, website_category):
+    """
+    Endpoint to get websites for a specific country.
+    ---
+    parameters:
+      - name: country
+        in: path
+        type: string
+        required: true
+        description: The name of the country.
+      - name: website_category
+        in: path
+        type: string
+        required: true
+        description: The category of the website.
+    responses:
+      200:
+        description: A JSON object containing websites for the specified country.
+      404:
+        description: country Not Found
+    """
+    websites = get_websites_by_category(country, website_category)
+    return jsonify({website_category: websites})
 
 @app.route('/add', methods=["POST"])
 def add_website_to_db():
