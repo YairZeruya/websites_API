@@ -66,7 +66,7 @@ def get_websites(country):
     categories = ["news", "economy", "sports"]
     for category in categories:
         websites_json[category] = get_websites_by_category(country, category)
-    return jsonify({country: websites_json})
+    return jsonify(websites_json)
 
 @app.route('/<country>/<website_category>', methods=["GET"])
 def get_categroy_websites(country, website_category):
@@ -91,7 +91,7 @@ def get_categroy_websites(country, website_category):
         description: country Not Found
     """
     websites = get_websites_by_category(country, website_category)
-    return jsonify({website_category: websites})
+    return jsonify(websites)
 
 @app.route('/add', methods=["POST"])
 def add_website_to_db():
@@ -126,8 +126,8 @@ def add_website_to_db():
 
 if __name__ == '__main__':
     create_table()
-    if not get_all_websites():
-      for country in websites:
-          for website_category, website_url in websites[country].items():
-              add_website(country, website_category, website_url)
-    app.run(debug= True, port= 8088)
+    # if not get_all_websites():
+    #   for country in websites:
+    #       for website_category, website_url in websites[country].items():
+    #           add_website(country, website_category, website_url)
+    app.run(debug= True,host='0.0.0.0', port= 8088)
