@@ -44,6 +44,16 @@ def create_table():
     connection.commit()
     connection.close()
 
+def insert_website_data():
+    connection = get_db_connection()
+    for country, categories in websites.items():
+        for category, urls in categories.items():
+            for url in urls:
+                print(f"Inserting website: {country}, {category}, {url}")
+                connection.execute('INSERT INTO websites (country, website_category, website_url) VALUES (?, ?, ?)', (country, category, url))
+    connection.commit()
+    connection.close()
+
 @app.route('/<country>', methods=["GET"])
 def get_websites(country):
     """
@@ -126,8 +136,6 @@ def add_website_to_db():
 
 if __name__ == '__main__':
     create_table()
-    # if not get_all_websites():
-    #   for country in websites:
-    #       for website_category, website_url in websites[country].items():
-    #           add_website(country, website_category, website_url)
+    if not get_all_websites():
+        insert_website_data()
     app.run(debug= True,host='0.0.0.0', port= 8088)

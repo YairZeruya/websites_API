@@ -19,9 +19,25 @@ websites = {
         "economy": ['https://www.theglobeandmail.com/'],
         "sports": ['https://www.sportsnet.ca/']
     },
-    "germany": {
+    'germany': {
         "news": ['https://www.ard.de/'],
         "economy": ['https://www.handelsblatt.com/'],
         "sports": ['https://www.kicker.de/']
+    },
+    "spain": {
+        "news": ['https://www.abc.es/'],
+        "economy": ['https://www.expansion.com/'],
+        "sports": ['https://www.marca.com/']
+    },
+    'france': {
+        "news": ['https://www.lemonde.fr/'],
+        "economy": ['https://www.lesechos.fr/'],
+        "sports": ['https://www.lequipe.fr/']
+    },
+    "italy": {
+        "news": ['https://www.repubblica.it/'],
+        "economy": ['https://www.ilsole24ore.com/'],
+        "sports": ['https://www.gazzetta.it/']
     }
+
 }
