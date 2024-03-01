@@ -16,7 +16,7 @@ pip install flasgger
 python app.py
 ```
 
-After running the app a SQLite database file named `websites.db`created in the project directory.
+After running the app a SQLite database file named `websites.db` created in the project directory.
 
 The API will be available at [http://localhost:8088/apidocs](http://localhost:8088/apidocs).
 
